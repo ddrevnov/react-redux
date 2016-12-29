@@ -16,6 +16,11 @@ import APIError from '../server/helpers/APIError';
 
 const app = express();
 
+// Express only serves static assets in production
+if (config.env === 'production') {
+  app.use(express.static('../../build'));
+}
+
 if (config.env === 'development') {
   app.use(logger('dev'));
 }
