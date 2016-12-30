@@ -8,13 +8,14 @@ const Header = (props) => {
       <div className="container-fluid">
         <div className="navbar-header">
           <Link to={"/"}>
-            <img className="logo" src={logo} />
+            <img className="logo" src={logo} alt="Logo" />
           </Link>
         </div>
         <div className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
             <li><Link to={"/home"} activeClassName={'link--active'}>Home</Link></li>
-            <li><Link to={"/user/10"} activeClassName={'link--active'}>User</Link></li>
+            <li><Link to={"/about"} activeClassName={'link--active'}>About</Link></li>
+            <li><Link to={"/courses"} activeClassName={'link--active'}>Courses</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li><a href="#">Link</a></li>
