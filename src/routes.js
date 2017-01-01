@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/App';
 import Home from './components/home/Home';
-import Courses from './components/courses/Courses';
+import Courses from './components/courses/CoursesPage';
 import About from './components/about/About';
 
 export default (
