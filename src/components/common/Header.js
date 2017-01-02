@@ -1,29 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router';
-import logo from '../logo.svg'
+import React, {PropTypes} from 'react';
+import { Link, IndexLink } from 'react-router';
+import LoadingDots from './LoadingDots';
 
-const Header = (props) => {
+const Header = ({loading}) => {
   return (
-    <nav className="navbar navbar-default">
-      <div className="container-fluid">
-        <div className="navbar-header">
-          <Link to={"/"}>
-            <img className="logo" src={logo} alt="Logo" />
-          </Link>
-        </div>
-        <div className="collapse navbar-collapse">
-          <ul className="nav navbar-nav">
-            <li><Link to={"/home"} activeClassName={'link--active'}>Home</Link></li>
-            <li><Link to={"/about"} activeClassName={'link--active'}>About</Link></li>
-            <li><Link to={"/courses"} activeClassName={'link--active'}>Courses</Link></li>
-          </ul>
-          <ul className="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
-          </ul>
-        </div>
-      </div>
+    <nav>
+      <IndexLink to="/" activeClassName="active">Home</IndexLink>
+      {" | "}
+      <Link to="/courses" activeClassName="active">Courses</Link>
+      {" | "}
+      <Link to="/about" activeClassName="active">About</Link>
+      {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>
   );
+};
+
+Header.propTypes = {
+  loading: PropTypes.bool.isRequired
 };
 
 export default Header;
