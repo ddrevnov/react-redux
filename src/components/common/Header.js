@@ -1,22 +1,59 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import { Link, IndexLink } from 'react-router';
-import LoadingDots from './LoadingDots';
+import { connect } from 'react-redux';
 
-const Header = ({loading}) => {
-  return (
-    <nav>
-      <IndexLink to="/" activeClassName="active">Home</IndexLink>
-      {" | "}
-      <Link to="/courses" activeClassName="active">Courses</Link>
-      {" | "}
-      <Link to="/about" activeClassName="active">About</Link>
-      {loading && <LoadingDots interval={100} dots={20}/>}
-    </nav>
-  );
-};
+class Header extends Component {
+
+  renderLinks() {
+    if (this.props.isAuth) {
+      return <li className="nav-item">
+        <Link className="nav-link" to="/signout">Sign Out</Link>
+      </li>
+    } else {
+      return [
+        <li className="nav-item" key={1}>
+          <Link className="nav-link" to="/signin">Sign In</Link>
+        </li>,
+        <li className="nav-item" key={2}>
+          <Link className="nav-link" to="/signup">Sign Up</Link>
+        </li>,
+      ];
+    }
+
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <div className="col-md-12">
+          <nav className="navbar navbar-light">
+            <ul className="nav navbar-nav">
+              <li className="nav-item">
+                <IndexLink to="/" activeClassName="active">Home</IndexLink>
+              </li>
+              <li className="nav-item">
+                <Link to="/courses" activeClassName="active">Courses</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/about" activeClassName="active">About</Link>
+              </li>
+              {this.renderLinks()}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    )
+  };
+}
 
 Header.propTypes = {
   loading: PropTypes.bool.isRequired
 };
 
-export default Header;
+function mapStateToProps(state) {
+  return {
+    isAuth: state.auth.isAuth
+  }
+}
+
+export default connect(mapStateToProps)(Header);

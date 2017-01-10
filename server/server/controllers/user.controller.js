@@ -1,4 +1,9 @@
 import User from '../models/user.model';
+import jwt from 'jsonwebtoken';
+import httpStatus from 'http-status';
+import APIError from '../helpers/APIError';
+
+const config = require('../../config/env');
 
 /**
  * Load user and append to req.
@@ -22,31 +27,39 @@ function get(req, res) {
 
 /**
  * Create new user
- * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.email - The email of user.
  * @returns {User}
  */
 function create(req, res, next) {
   const user = new User({
-    username: req.body.username,
-    mobileNumber: req.body.mobileNumber
+    email: req.body.email,
+    password: req.body.password,
   });
 
   user.save()
-    .then(savedUser => res.json(savedUser))
-    .catch(e => next(e));
+    .then(savedUser => {
+      const token = jwt.sign({
+        email: savedUser.email
+      }, config.jwtSecret);
+      return res.json({
+        token,
+        email: savedUser.email
+      });
+    })
+    .catch(e => {
+      const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED);
+      return next(err);
+    });
 }
 
 /**
  * Update existing user
- * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.email - The email of user.
  * @returns {User}
  */
 function update(req, res, next) {
   const user = req.user;
-  user.username = req.body.username;
-  user.mobileNumber = req.body.mobileNumber;
+  user.email = req.body.email;
 
   user.save()
     .then(savedUser => res.json(savedUser))
