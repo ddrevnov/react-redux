@@ -11,3 +11,6 @@ export const UNAUTH_USER = 'UNAUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const FETCH_MESSAGE = 'FETCH_MESSAGE';
 
+// TODOS
+export const LOAD_TODOS_SUCCESS = 'LOAD_TODOS_SUCCESS';
+export const LOAD_TODOS_ERROR = 'LOAD_TODOS_ERROR';
