@@ -8,7 +8,14 @@ class TodoPage extends Component {
     super(props, context);
   }
 
+  componentWillMount() {
+    this.props.actions.fetchTodos();
+  }
+
   render() {
+    const {todos} = this.props;
+    console.log(todos);
+
     return (
       <div className="container">
         <div className="col-md-12">
@@ -20,12 +27,13 @@ class TodoPage extends Component {
 }
 
 TodoPage.propTypes = {
-  //myProp: PropTypes.string.isRequired
+  actions: PropTypes.object.isRequired,
+  todos: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    state: state
+    todos: state.todos
   };
 }
 
