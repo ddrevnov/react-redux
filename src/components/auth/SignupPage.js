@@ -34,7 +34,9 @@ class SignupPage extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <form
+        className="col-md-6"
+        onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <Field
           name="email"
           component={renderField}
@@ -51,14 +53,20 @@ class SignupPage extends Component {
           label="Confirm password"
           type="password"/>
         {this.errorAlert()}
-        <button
-          disabled={submitting}
-          type="submit"
-          className="btn btn-primary">Sign Up</button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+        <div className="row">
+          <div className="col-md-6">
+            <button
+              disabled={submitting}
+              type="submit"
+              className="btn btn-primary">Sign Up</button>
+          </div>
+          <div className="col-md-6">
+            <button
+              type="button"
+              className="btn btn-danger"
+              disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+          </div>
+        </div>
       </form>
     );
   }

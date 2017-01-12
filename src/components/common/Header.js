@@ -7,15 +7,21 @@ class Header extends Component {
   renderLinks() {
     if (this.props.isAuth) {
       return <li className="nav-item">
-        <Link className="nav-link" to="/signout">Sign Out</Link>
+        <Link
+          activeClassName="active"
+          to="/signout">Sign Out</Link>
       </li>
     } else {
       return [
         <li className="nav-item" key={1}>
-          <Link className="nav-link" to="/signin">Sign In</Link>
+          <Link
+            activeClassName="active"
+            to="/signin">Sign In</Link>
         </li>,
         <li className="nav-item" key={2}>
-          <Link className="nav-link" to="/signup">Sign Up</Link>
+          <Link
+            activeClassName="active"
+            to="/signup">Sign Up</Link>
         </li>,
       ];
     }
@@ -26,7 +32,7 @@ class Header extends Component {
     return (
       <div className="row">
         <div className="col-md-12">
-          <nav className="navbar navbar-light">
+          <nav className="navbar">
             <ul className="nav navbar-nav">
               <li className="nav-item">
                 <IndexLink to="/" activeClassName="active">Home</IndexLink>
