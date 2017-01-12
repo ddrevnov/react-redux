@@ -38,6 +38,9 @@ class Header extends Component {
                 <IndexLink to="/" activeClassName="active">Home</IndexLink>
               </li>
               <li className="nav-item">
+                <Link to="/todo" activeClassName="active">Todo</Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/courses" activeClassName="active">Courses</Link>
               </li>
               <li className="nav-item">

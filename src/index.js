@@ -11,8 +11,11 @@ import './styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
 import { AUTH_USER } from './actions/actionTypes';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
+
 store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 
@@ -24,7 +27,7 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <Router history={history} routes={routes} />
   </Provider>,
   document.getElementById('app')
 );
