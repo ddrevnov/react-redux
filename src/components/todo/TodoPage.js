@@ -6,9 +6,6 @@ import * as todoActions from '../../actions/todoActions';
 class TodoPage extends Component {
   constructor(props, context) {
     super(props, context);
-  }
-
-  componentWillMount() {
     this.props.actions.fetchTodos();
   }
 

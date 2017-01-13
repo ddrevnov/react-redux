@@ -8,4 +8,12 @@ const TodoSchema = new mongoose.Schema({
   completed: { type: Boolean, required: true }
 });
 
+TodoSchema.statics = {
+
+  get() {
+    return this.find({});
+  }
+
+};
+
 export default mongoose.model('Todo', TodoSchema);

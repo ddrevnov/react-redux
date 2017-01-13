@@ -11,7 +11,7 @@ export const loadAuthorsError = () => {
 
 export const fetchTodos = () => dispatch => {
   axios.get('/api/todos')
-    .then(todos => dispatch(loadAuthorsSuccess(todos)))
+    .then(res => dispatch(loadAuthorsSuccess(res.data)))
     .catch(err => {
       console.error(err);
       dispatch(loadAuthorsError());
