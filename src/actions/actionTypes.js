@@ -14,3 +14,5 @@ export const FETCH_MESSAGE = 'FETCH_MESSAGE';
 // TODOS
 export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';
 export const FETCH_TODOS_ERROR = 'FETCH_TODOS_ERROR';
+export const TOGGLE_TODO = 'TOGGLE_TODO';
+export const ADD_TODO = 'ADD_TODO';
