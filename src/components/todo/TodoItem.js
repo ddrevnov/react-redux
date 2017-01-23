@@ -1,10 +1,9 @@
 import React, {PropTypes} from 'react';
 
-const TodoItem = ({ completed, text, onClick, _id }) => {
+const TodoItem = ({ completed, text, _id }) => {
 
   return (
     <li
-      onClick={onClick(_id)}
       style={{
         textDecoration: completed ? 'line-through' : 'none'
       }}
@@ -17,7 +16,6 @@ const TodoItem = ({ completed, text, onClick, _id }) => {
 TodoItem.propTypes = {
   completed: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

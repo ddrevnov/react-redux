@@ -1,14 +1,13 @@
 import React, {PropTypes} from 'react';
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todos, onTodoClick }) => {
+const TodoList = ({ todos }) => {
   return (
     <ul className="list-group">
       {todos.map(todo =>
         <TodoItem
           key={todo._id}
           {...todo}
-          onClick={() => onTodoClick(todo._id)}
         />
       )}
     </ul>
@@ -16,8 +15,7 @@ const TodoList = ({ todos, onTodoClick }) => {
 };
 
 TodoList.propTypes = {
-  todos: PropTypes.array.isRequired,
-  onTodoClick: PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired
 };
 
 export default TodoList;

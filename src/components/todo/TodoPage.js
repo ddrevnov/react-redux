@@ -10,10 +10,22 @@ class TodoPage extends Component {
     this.props.actions.fetchTodos();
   }
 
-  onTodoClick(id) {
-    console.log(id);
-    this.props.actions.toggleCompleted(id);
-  };
+  // onTodoClick(id) {
+  //   console.log(id);
+  //   this.props.actions.toggleCompleted(id);
+  // };
+
+  addTodo(event) {
+    event.preventDefault();
+    let text = this.textInput.value.trim();
+    let todo = {
+      text,
+      completed: false
+    };
+
+    this.props.actions.addTodo(todo);
+    this.textInput.value = '';
+  }
 
   render() {
     const {todos} = this.props;
@@ -22,7 +34,13 @@ class TodoPage extends Component {
       <div className="container">
         <div className="col-md-12">
           <h1>Todo page</h1>
-          <TodoList onTodoClick={this.onTodoClick.bind(this)} todos={todos} />
+          <form onSubmit={this.addTodo.bind(this)}>
+            <input
+              ref={(input) => { this.textInput = input; }}
+              type="text"
+              className="form-control"/>
+          </form>
+          <TodoList todos={todos} />
         </div>
       </div>
     );
