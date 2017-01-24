@@ -1,0 +1,1 @@
+{"version":3,"sources":["server/routes/todo.route.js"],"names":["router","Router","route","get","getTodos"],"mappings":";;;;;;AAAA;;;;AACA;;;;;;AAEA,IAAMA,SAAS,kBAAQC,MAAR,EAAf,C,CAAiC;;AAEjC;AACAD,OAAOE,KAAP,CAAa,GAAb,EACGC,GADH,CACO,eAASC,QADhB;;kBAIeJ,M","file":"todo.route.js","sourceRoot":"../../../../.."}

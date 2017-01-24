@@ -29,6 +29,8 @@ export default function todosReducer(state = initialState.todos, action) {
         ...state,
         todo(undefined, action)
       ];
+    case types.DELETE_TODO_SUCCESS:
+      return state.filter((todo) => action.payload._id !== todo._id);
     default:
       return state;
   }

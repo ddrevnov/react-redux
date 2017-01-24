@@ -32,15 +32,17 @@ class TodoPage extends Component {
 
     return (
       <div className="container">
-        <div className="col-md-12">
-          <h1>Todo page</h1>
-          <form onSubmit={this.addTodo.bind(this)}>
-            <input
-              ref={(input) => { this.textInput = input; }}
-              type="text"
-              className="form-control"/>
-          </form>
-          <TodoList todos={todos} />
+        <div className="row">
+          <div className="col-md-12">
+            <h1>Todo page</h1>
+            <form onSubmit={this.addTodo.bind(this)}>
+              <input
+                ref={(input) => { this.textInput = input; }}
+                type="text"
+                className="form-control"/>
+            </form>
+            <TodoList todos={todos} />
+          </div>
         </div>
       </div>
     );
