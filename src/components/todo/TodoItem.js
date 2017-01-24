@@ -1,51 +1,67 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/todoActions';
 
-const TodoItem = ({ completed, text, _id, dispatch }) => {
+export class TodoItem extends Component {
+  state = {
+    editing: false
+  };
 
-  const renderText = (editMode) => {
-    let textTag;
+  handleDoubleClick = () => {
+    this.setState({ editing: true });
+  };
 
-    if (!editMode) {
-      textTag = <span>{ text }</span>;
+  handleSubmit = (event) => {
+    event.preventDefault();
+    let todo = {
+      ...this.props,
+      text: this.textInput.value
+    };
+    this.props.dispatch(actions.updateTodo(todo));
+    this.setState({ editing: false });
+  };
+
+  render() {
+    const { text, completed, _id, dispatch } = this.props;
+
+    let element;
+
+    if (this.state.editing) {
+      element = (
+      <form onSubmit={this.handleSubmit}>
+        <input
+          ref={(input) => { this.textInput = input; }}
+          type="text" defaultValue={text}/>
+      </form>
+      );
     } else {
-      textTag = <input type="text" defaultValue={text}/>;
+      element = (
+        <span>{ text }</span>
+      );
     }
 
-    return textTag;
-  };
-
-  const generateText = () => {
-    let editMode = false;
-
     return (
-      <div
-        onDoubleClick={() => {
-          editMode = !editMode;
+      <li
+        style={{
+          textDecoration: completed ? 'line-through' : 'none'
         }}
-        className="col-md-11">
-        {renderText(editMode)}
-      </div>
+        className="list-group-item row">
+        <div
+          onDoubleClick={this.handleDoubleClick}
+          className="col-md-11">
+          { element }
+        </div>
+        <div className="col-md-1">
+          <button
+            onClick={() => {
+              dispatch(actions.deleteTodo(_id));
+            }}
+            className="btn btn-danger">Delete</button>
+        </div>
+      </li>
     );
-  };
+  }
 
-  return (
-    <li
-      style={{
-        textDecoration: completed ? 'line-through' : 'none'
-      }}
-      className="list-group-item row">
-      {generateText()}
-      <div className="col-md-1">
-        <button
-          onClick={() => {
-            dispatch(actions.deleteTodo(_id));
-          }}
-          className="btn btn-danger">Delete</button>
-      </div>
-    </li>
-  );
 };
 
 TodoItem.propTypes = {

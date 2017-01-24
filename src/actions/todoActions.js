@@ -23,6 +23,11 @@ export const deleteTodoError = () => {
   return {type: types.DELETE_TODO_ERROR, payload: 'Error: delete todo'};
 };
 
+export const updateTodoSuccess = (todo) => {
+  return {type: types.UPDATE_TODO_SUCCESS, payload: todo};
+};
+
+
 // export const toggleCompleted = (id) => {
 //   return {type: types.TOGGLE_TODO, payload: id};
 // };
@@ -39,6 +44,16 @@ export const deleteTodo = (id) => dispatch => {
 export const addTodo = (todo) => dispatch => {
   axios.post('/api/todos', todo)
     .then(res => dispatch(addTodoSuccess(res.data)))
+    .catch(err => {
+      console.error(err);
+      dispatch(addTodoError());
+    });
+};
+
+export const updateTodo = (todo) => dispatch => {
+  console.log(todo);
+  axios.put(`/api/todos/${todo._id}`, todo)
+    .then(res => dispatch(updateTodoSuccess(res.data)))
     .catch(err => {
       console.error(err);
       dispatch(addTodoError());
