@@ -41,9 +41,6 @@ class Header extends Component {
                 <Link to="/todo" activeClassName="active">Todo</Link>
               </li>
               <li className="nav-item">
-                <Link to="/courses" activeClassName="active">Courses</Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/about" activeClassName="active">About</Link>
               </li>
               {this.renderLinks()}
