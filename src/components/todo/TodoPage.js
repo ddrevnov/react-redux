@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as todoActions from '../../actions/todoActions';
 import TodoList from './TodoList';
+import { Field, reduxForm } from 'redux-form';
 
 class TodoPage extends Component {
 
@@ -10,36 +11,42 @@ class TodoPage extends Component {
     this.props.actions.fetchTodos();
   }
 
-  // onTodoClick(id) {
-  //   console.log(id);
-  //   this.props.actions.toggleCompleted(id);
-  // };
+  addTodo(formProps) {
+    let text = formProps.todoText;
 
-  addTodo(event) {
-    event.preventDefault();
-    let text = this.textInput.value.trim();
+    if (!text) return;
+
     let todo = {
       text,
       completed: false
     };
 
     this.props.actions.addTodo(todo);
-    this.textInput.value = '';
+    this.props.reset('addTodoForm');
   }
 
   render() {
-    const {todos} = this.props;
+    const {handleSubmit, todos, submitting, pristine} = this.props;
 
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <h1>Todo page</h1>
-            <form onSubmit={this.addTodo.bind(this)}>
-              <input
-                ref={(input) => { this.textInput = input; }}
-                type="text"
-                className="form-control"/>
+            <form className="well row" onSubmit={handleSubmit(this.addTodo.bind(this))}>
+              <div className="col-md-11">
+                <Field
+                  name="todoText"
+                  component="input"
+                  className="form-control"
+                  type="text"
+                  placeholder="Add todo" />
+              </div>
+              <div className="col-md-1">
+                <button
+                  disabled={pristine || submitting}
+                  className="btn btn-success pull-right">Add</button>
+              </div>
             </form>
             <TodoList todos={todos} />
           </div>
@@ -65,5 +72,9 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(todoActions, dispatch)
   };
 }
+
+TodoPage = reduxForm({
+  form: 'addTodoForm'
+})(TodoPage);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoPage);

@@ -21,7 +21,7 @@ const todo = (state = initialState.todo, action) => {
 export default function todosReducer(state = initialState.todos, action) {
   switch (action.type) {
     case types.FETCH_TODOS_SUCCESS:
-      return state.concat(action.payload);
+      return state = action.payload;
     case types.FETCH_TODOS_ERROR:
       return action.payload;
     case types.ADD_TODO_SUCCESS:
