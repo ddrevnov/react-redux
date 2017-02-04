@@ -43,6 +43,8 @@ class Header extends Component {
               <li className="nav-item">
                 <Link to="/about" activeClassName="active">About</Link>
               </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
               {this.renderLinks()}
             </ul>
           </nav>
