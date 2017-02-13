@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../../actions/authActions';
+import * as actions from './authActions';
 
 class SignoutPage extends Component {
 

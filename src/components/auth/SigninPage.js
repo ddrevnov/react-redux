@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import * as authActions from '../../actions/authActions';
+import * as authActions from './authActions';
 
 class SigninPage extends Component {
 

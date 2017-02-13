@@ -1,5 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router';
+import io from 'socket.io-client';
+import {SERVER_PATH} from '../../constants/appConstants';
+
+const socket = io.connect(SERVER_PATH);
+
+socket.on('test', () => {
+  console.log('test passed');
+});
 
 class HomePage extends React.Component {
   render() {

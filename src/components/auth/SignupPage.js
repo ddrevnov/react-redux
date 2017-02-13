@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../../actions/authActions';
+import * as actions from './authActions';
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <fieldset className={`form-group ${error && touched ? 'has-error' : ''}`}>

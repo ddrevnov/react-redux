@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import * as types from './actionTypes';
+import * as types from '../../constants/actionTypes';
 
 export function signinUser({ email, password }) {
   return function(dispatch) {

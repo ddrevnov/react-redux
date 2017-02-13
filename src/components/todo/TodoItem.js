@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../actions/todoActions';
+import * as actions from './todoActions';
 
 export class TodoItem extends Component {
   state = {

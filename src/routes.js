@@ -7,12 +7,14 @@ import SigninPage from './components/auth/SigninPage';
 import SignoutPage from './components/auth/SignoutPage';
 import SignupPage from './components/auth/SignupPage';
 import TodoPage from './components/todo/TodoPage';
+import Chat from './components/chat/Chat';
 import RequireAuth from './components/auth/RequireAuth';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="todo" component={RequireAuth(TodoPage)} />
+    <Route path="chat" component={RequireAuth(Chat)} />
     <Route path="about" component={AboutPage} />
     <Route path="signin" component={SigninPage} />
     <Route path="signout" component={SignoutPage} />

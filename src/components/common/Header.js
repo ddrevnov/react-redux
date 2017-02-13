@@ -41,6 +41,9 @@ class Header extends Component {
                 <Link to="/todo" activeClassName="active">Todo</Link>
               </li>
               <li className="nav-item">
+                <Link to="/chat" activeClassName="active">Chat</Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/about" activeClassName="active">About</Link>
               </li>
             </ul>

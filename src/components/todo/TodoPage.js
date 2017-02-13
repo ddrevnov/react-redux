@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as todoActions from '../../actions/todoActions';
+import * as todoActions from './todoActions';
 import TodoList from './TodoList';
 import { Field, reduxForm } from 'redux-form';
 
