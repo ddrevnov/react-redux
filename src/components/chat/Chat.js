@@ -2,30 +2,40 @@ import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as chatActions from './chatActions';
+import ChatHeader from './ChatHeader';
+import ChatList from './ChatList';
+import ChatFooter from './ChatFooter';
 
 class Chat extends Component {
-  constructor(props, context) {
-    super(props, context);
-  }
 
   componentWillMount() {
     this.props.actions.fetchRooms();
   }
 
   render() {
+    const { rooms, messages, actions } = this.props;
+
     return (
-      <div>Chat</div>
+      <div className="container">
+        <ChatHeader
+          rooms={rooms}
+          fetchMessagesByRoom={actions.fetchMessagesByRoom} />
+        <ChatList messages={messages} />
+        <ChatFooter sendMessage={actions.sendMessage} />
+      </div>
     );
   }
 }
 
-// Chat.propTypes = {
-//   //myProp: PropTypes.string.isRequired
-// };
+Chat.propTypes = {
+  actions: PropTypes.object.isRequired,
+  rooms: PropTypes.array.isRequired,
+};
 
 function mapStateToProps(state, ownProps) {
   return {
-    state: state
+    rooms: state.chatRooms,
+    messages: state.chatMessages,
   };
 }
 

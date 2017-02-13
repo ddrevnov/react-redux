@@ -1,17 +1,23 @@
 import * as types from '../../constants/actionTypes';
 
 const initialState = {
-  rooms: []
+  rooms: [],
+  messages: []
 };
 
-const rooms = (state = initialState.rooms, action) => {
-  console.log(state, action);
+export const chatRooms = (state = initialState.rooms, action) => {
   switch (action.type) {
     case `${types.FETCH_CHAT_ROOMS}_FULFILLED`:
-      return {
-        ...state,
-        ...action.payload.data
-      };
+      return state.concat(action.payload.data);
+    default:
+      return state
+  }
+};
+
+export const chatMessages = (state = initialState.messages, action) => {
+  switch (action.type) {
+    case `${types.FETCH_CHAT_MESSAGES}_FULFILLED`:
+      return state.concat(action.payload.data);
     default:
       return state
   }

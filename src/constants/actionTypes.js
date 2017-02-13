@@ -11,3 +11,4 @@ export const DELETE_TODO = 'DELETE_TODO';
 
 // CHAT --------------------------------------------
 export const FETCH_CHAT_ROOMS = 'FETCH_CHAT_ROOMS';
+export const FETCH_CHAT_MESSAGES = 'FETCH_CHAT_MESSAGES';
