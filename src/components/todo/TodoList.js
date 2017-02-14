@@ -1,16 +1,17 @@
 import React, {PropTypes} from 'react';
 import TodoItem from './TodoItem';
+import { List } from 'semantic-ui-react';
 
 const TodoList = ({ todos }) => {
   return (
-    <ul className="list-group">
+    <List divided verticalAlign='middle'>
       {todos.map((todo, i) =>
         <TodoItem
           key={i}
           {...todo}
         />
       )}
-    </ul>
+    </List>
   );
 };
 

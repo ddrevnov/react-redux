@@ -3,6 +3,7 @@ import {Field, reduxForm} from 'redux-form';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as authActions from './authActions';
+import { Container, Form, Button } from 'semantic-ui-react';
 
 class SigninPage extends Component {
 
@@ -25,23 +26,23 @@ class SigninPage extends Component {
     const {handleSubmit} = this.props;
 
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-            <fieldset className="form-group">
-              <label>Email: <Field name="email" component="input" className="form-control" type="email"/>
-              </label>
-            </fieldset>
+      <Container>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
-            <fieldset className="form-group">
-              <label>Password: <Field name="password" component="input" className="form-control" type="password"/>
-              </label>
-            </fieldset>
-            {this.renderAlert()}
-            <button type="submit" className="btn btn-primary">Sign In</button>
-          </form>
-        </div>
-      </div>
+          <Form.Field>
+            <label>Email:</label>
+            <Field name="email" component="input" className="form-control" type="email"/>
+          </Form.Field>
+
+          <Form.Field>
+            <label>Password:</label>
+            <Field name="password" component="input" className="form-control" type="password"/>
+          </Form.Field>
+
+          {this.renderAlert()}
+          <Button color="green" type="submit">Sign In</Button>
+        </Form>
+      </Container>
     );
   }
 }

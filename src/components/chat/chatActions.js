@@ -21,3 +21,10 @@ export const sendMessage = (message) => dispatch => {
     payload: axios.post(`/api/chat/messages`, message)
   });
 };
+
+export const changeRoom = (room) => dispatch => {
+  dispatch({
+    type: types.CHANGE_ROOM,
+    payload: room
+  });
+};

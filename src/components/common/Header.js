@@ -1,58 +1,65 @@
 import React, {PropTypes, Component} from 'react';
 import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
+import { Menu, Grid } from 'semantic-ui-react';
 
 class Header extends Component {
 
   renderLinks() {
     if (this.props.isAuth) {
-      return <li className="nav-item">
-        <Link
-          activeClassName="active"
-          to="/signout">Sign Out</Link>
-      </li>
+      return <Menu.Item
+        key={0}
+        as={Link}
+        to="/signout"
+        activeClassName="active">Sign Out</Menu.Item>
     } else {
       return [
-        <li className="nav-item" key={1}>
-          <Link
-            activeClassName="active"
-            to="/signin">Sign In</Link>
-        </li>,
-        <li className="nav-item" key={2}>
-          <Link
-            activeClassName="active"
-            to="/signup">Sign Up</Link>
-        </li>,
+        <Menu.Item
+          key={1}
+          as={Link}
+          to="/signin"
+          activeClassName="active">Sign In</Menu.Item>,
+        <Menu.Item
+          key={2}
+          as={Link}
+          to="/signup"
+          activeClassName="active">Sign Up</Menu.Item>,
       ];
     }
 
   }
 
   render() {
+
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <nav className="navbar">
-            <ul className="nav navbar-nav">
-              <li className="nav-item">
-                <IndexLink to="/" activeClassName="active">Home</IndexLink>
-              </li>
-              <li className="nav-item">
-                <Link to="/todo" activeClassName="active">Todo</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/chat" activeClassName="active">Chat</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/about" activeClassName="active">About</Link>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              {this.renderLinks()}
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <Grid.Row>
+        <Menu pointing className="top-menu">
+          <Menu.Item
+            as={IndexLink}
+            to="/"
+            activeClassName="active">Home</Menu.Item>
+
+          <Menu.Item
+            as={Link}
+            to="/todo"
+            activeClassName="active">Todo</Menu.Item>
+
+          <Menu.Item
+            as={Link}
+            to="/chat"
+            activeClassName="active">Chat</Menu.Item>
+
+          <Menu.Item
+            as={Link}
+            to="/about"
+            name="about"
+            activeClassName="active">About</Menu.Item>
+
+          <Menu.Menu position='right'>
+            {this.renderLinks()}
+          </Menu.Menu>
+        </Menu>
+      </Grid.Row>
     )
   };
 }

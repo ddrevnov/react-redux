@@ -1,14 +1,21 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
+import { Container, Header, Button, Grid } from 'semantic-ui-react';
 
 class HomePage extends React.Component {
+  handleClick() {
+    browserHistory.push('/about');
+  }
+
   render() {
     return (
-      <div className="jumbotron">
-        <h1>Home project</h1>
-        <p>React, Redux, Express api with jwt and React Router in ES6 for ultra-responsive web apps.</p>
-        <Link to="about" className="btn btn-primary btn-lg">Learn more</Link>
-      </div>
+      <Grid.Row>
+        <Container>
+          <Header as="h1">Home project</Header>
+          <p>React, Redux, Express api with jwt and React Router in ES6 for ultra-responsive web apps.</p>
+          <Button onClick={this.handleClick.bind(this)} primary>Learn More</Button>
+        </Container>
+      </Grid.Row>
     );
   }
 }

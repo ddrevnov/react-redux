@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
 import todos from '../components/todo/todoReducer';
 import auth from '../components/auth/authReducer';
-import {chatRooms} from '../components/chat/chatReducer';
-import {chatMessages} from '../components/chat/chatReducer';
+import {
+  chatRooms,
+  chatRoom,
+  chatMessages} from '../components/chat/chatReducer';
 import {reducer as form} from 'redux-form';
 import { routerReducer } from 'react-router-redux';
 
@@ -11,6 +13,7 @@ const rootReducer = combineReducers({
   auth,
   chatRooms,
   chatMessages,
+  chatRoom,
   form,
   routing: routerReducer
 });

@@ -1,24 +1,18 @@
 import React, {PropTypes, Component} from 'react';
-import {
-  Navbar,
-  Nav,
-  MenuItem,
-  NavDropdown} from 'react-bootstrap';
+import { Menu, Dropdown } from 'semantic-ui-react';
 
 class ChatHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedRoom: 'Select room'
-    };
-  }
+  state = {
+    selectedRoom: 'Select room'
+  };
 
-  handleRoomChange(eventKey) {
-    let { fetchMessagesByRoom } = this.props;
+  handleRoomChange = (e, data) => {
+    let { fetchMessagesByRoom, rooms, changeRoom } = this.props;
+    let roomId = data.value;
     let selectedRoom = {};
 
-    this.props.rooms.forEach((room) => {
-      if (room._id === eventKey) {
+    rooms.forEach((room) => {
+      if (room._id === roomId) {
         selectedRoom = room;
       }
     });
@@ -27,40 +21,36 @@ class ChatHeader extends Component {
       selectedRoom: selectedRoom.name
     });
 
+    changeRoom(selectedRoom._id);
     fetchMessagesByRoom(selectedRoom._id);
-  }
+  };
 
   render() {
     const { rooms } = this.props;
 
     const roomList = (
-      rooms.map((room, i) => {
-        return <MenuItem
-          eventKey={room._id}
+      rooms.map(room => {
+        return <Dropdown.Item
+          onClick={this.handleRoomChange}
+          value={room._id}
           key={room._id}>
           {room.name}
-          </MenuItem>
+          </Dropdown.Item>
       })
     );
 
     return (
-      <Navbar inverse onSelect={this.handleRoomChange.bind(this)}>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#">Chat</a>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav>
-            <NavDropdown
-              title={this.state.selectedRoom}
-              id="basic-nav-dropdown">
+      <Menu>
+        <Menu.Item>Chat</Menu.Item>
+        <Menu.Menu position="right">
+          <Dropdown
+            item text='Select room'>
+            <Dropdown.Menu>
               {roomList}
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
+      </Menu>
     );
   }
 }

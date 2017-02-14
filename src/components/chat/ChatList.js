@@ -1,18 +1,15 @@
 import React, {PropTypes} from 'react';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import ChatItem from './ChatItem';
+import { List } from 'semantic-ui-react';
 
-const ChatList = ({ messages }) => {
-
-  if (!messages.length) return <ListGroup>
-    <span>Список пуст</span>
-  </ListGroup>;
+const ChatList = ({ messages, messagesFetched, messagesFetching }) => {
 
   return (
-    <ListGroup>
-      {messages.map(message =>
-        <ListGroupItem key={message._id}>{message.text}</ListGroupItem>
+    <List relaxed>
+      {messages.map((message, i) =>
+        <ChatItem key={i} message={message} />
       )}
-    </ListGroup>
+    </List>
   );
 };
 

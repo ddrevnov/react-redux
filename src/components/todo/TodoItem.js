@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from './todoActions';
+import { Form, List, Button, Input } from 'semantic-ui-react';
 
 export class TodoItem extends Component {
   state = {
@@ -28,11 +29,11 @@ export class TodoItem extends Component {
 
     if (this.state.editing) {
       element = (
-      <form onSubmit={this.handleSubmit}>
-        <input
+      <Form onSubmit={this.handleSubmit}>
+        <Input
           ref={(input) => { this.textInput = input; }}
           type="text" defaultValue={text}/>
-      </form>
+      </Form>
       );
     } else {
       element = (
@@ -41,24 +42,26 @@ export class TodoItem extends Component {
     }
 
     return (
-      <li
+      <List.Item
         style={{
           textDecoration: completed ? 'line-through' : 'none'
-        }}
-        className="list-group-item row">
-        <div
-          onDoubleClick={this.handleDoubleClick}
-          className="col-md-11">
+        }}>
+        <List.Content floated='left'>
+          {/*<Form.Field control='input' type='checkbox' />*/}
+          <span onDoubleClick={this.handleDoubleClick}>
           { element }
-        </div>
-        <div className="col-md-1">
-          <button
+        </span>
+        </List.Content>
+        <List.Content floated='right'>
+          <Button
+            color="red"
             onClick={() => {
               dispatch(actions.deleteTodo(_id));
-            }}
-            className="btn btn-danger">Delete</button>
-        </div>
-      </li>
+            }}>
+            Delete
+          </Button>
+        </List.Content>
+      </List.Item>
     );
   }
 

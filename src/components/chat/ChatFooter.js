@@ -1,27 +1,44 @@
-import React, {PropTypes} from 'react';
-import {
-  FormGroup,
-  FormControl,
-  Button,
-  InputGroup} from 'react-bootstrap';
+import React, {PropTypes, Component} from 'react';
+import { Form, Button, TextArea } from 'semantic-ui-react';
 
-const ChatFooter = ({ sendMessage }) => {
-  return (
-    <form>
-      <FormGroup>
-        <InputGroup>
+class ChatFooter extends Component {
+  state = {
+    messageText: ''
+  };
 
-          <FormControl type="text" />
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let { sendMessage, room } = this.props;
+    let { messageText } = this.state;
 
-          <InputGroup.Button>
-            <Button bsStyle="success">Send</Button>
-          </InputGroup.Button>
+    sendMessage({
+      text: messageText,
+      chatName: 'Test',
+      room
+    });
+    this.setState({messageText: ''});
+  };
 
-        </InputGroup>
-      </FormGroup>
-    </form>
-  );
-};
+  handleTyping = (e) => {
+    this.setState({messageText: e.target.value.trim()});
+  };
+
+  render() {
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group>
+          <TextArea
+            onChange={this.handleTyping}
+            value={this.state.messageText}
+            placeholder="Type message..." />
+        </Form.Group>
+        <Form.Group>
+          <Button type="submit">Send</Button>
+        </Form.Group>
+      </Form>
+    );
+  }
+}
 
 ChatFooter.propTypes = {
   sendMessage: PropTypes.func.isRequired

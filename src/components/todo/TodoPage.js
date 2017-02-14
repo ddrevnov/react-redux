@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as todoActions from './todoActions';
 import TodoList from './TodoList';
 import { Field, reduxForm } from 'redux-form';
+import { Grid, Container, Header, Form, Button } from 'semantic-ui-react';
 
 class TodoPage extends Component {
 
@@ -29,29 +30,35 @@ class TodoPage extends Component {
     const {handleSubmit, todos, submitting, pristine} = this.props;
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <h1>Todo page</h1>
-            <form className="well row" onSubmit={handleSubmit(this.addTodo.bind(this))}>
-              <div className="col-md-11">
-                <Field
-                  name="todoText"
-                  component="input"
-                  className="form-control"
-                  type="text"
-                  placeholder="Add todo" />
-              </div>
-              <div className="col-md-1">
-                <button
-                  disabled={pristine || submitting}
-                  className="btn btn-success pull-right">Add</button>
-              </div>
-            </form>
+      <Grid.Row>
+        <Grid.Column>
+          <Container>
+            <Header as="h1">Todo page</Header>
+            <Form onSubmit={handleSubmit(this.addTodo.bind(this))}>
+
+              <Grid columns='equal'>
+                <Grid.Column width={15}>
+                  <Form.Field>
+                    <Field
+                      name="todoText"
+                      component="input"
+                      type="text"
+                      placeholder="Add todo" />
+                  </Form.Field>
+                </Grid.Column>
+                <Grid.Column width={1}>
+                  <Button
+                    floated='right'
+                    color="green"
+                    disabled={pristine || submitting}>Add</Button>
+                </Grid.Column>
+              </Grid>
+
+            </Form>
             <TodoList todos={todos} />
-          </div>
-        </div>
-      </div>
+          </Container>
+        </Grid.Column>
+      </Grid.Row>
     );
   }
 }

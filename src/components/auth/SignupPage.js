@@ -3,15 +3,14 @@ import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './authActions';
+import { Form, Button, Label, Container } from 'semantic-ui-react';
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <fieldset className={`form-group ${error && touched ? 'has-error' : ''}`}>
+  <Form.Field>
     <label>{label}</label>
-    <div>
-      <input className="form-control" {...input} placeholder={label} type={type}/>
-      {touched && (error && <div className="alert alert-danger">{error}</div>)}
-    </div>
-  </fieldset>
+    <input {...input} placeholder={label} type={type}/>
+    {touched && (error && <Label basic color='red' pointing>{error}</Label>)}
+  </Form.Field>
 );
 
 class SignupPage extends Component {
@@ -34,40 +33,40 @@ class SignupPage extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
 
     return (
-      <form
-        className="col-md-6"
-        onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <Field
-          name="email"
-          component={renderField}
-          label="Email"
-          type="email"/>
-        <Field
-          name="password"
-          component={renderField}
-          label="Password"
-          type="password"/>
-        <Field
-          name="passwordConfirm"
-          component={renderField}
-          label="Confirm password"
-          type="password"/>
-        {this.errorAlert()}
-        <div className="row">
-          <div className="col-md-6">
-            <button
-              disabled={submitting}
-              type="submit"
-              className="btn btn-primary">Sign Up</button>
-          </div>
-          <div className="col-md-6">
-            <button
-              type="button"
-              className="btn btn-danger"
-              disabled={pristine || submitting} onClick={reset}>Clear Values</button>
-          </div>
-        </div>
-      </form>
+      <Container>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+
+          <Field
+            name="email"
+            component={renderField}
+            label="Email"
+            type="email"/>
+
+          <Field
+            name="password"
+            component={renderField}
+            label="Password"
+            type="password"/>
+
+          <Field
+            name="passwordConfirm"
+            component={renderField}
+            label="Confirm password"
+            type="password"/>
+
+          {this.errorAlert()}
+
+          <Button
+            color="green"
+            disabled={submitting}
+            type="submit">Sign Up</Button>
+          <Button
+            color="red"
+            type="button"
+            disabled={pristine || submitting} onClick={reset}>Clear Values</Button>
+
+        </Form>
+      </Container>
     );
   }
 }
