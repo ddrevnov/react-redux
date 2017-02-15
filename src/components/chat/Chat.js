@@ -11,6 +11,12 @@ class Chat extends Component {
 
   componentWillMount() {
     this.props.actions.fetchRooms();
+    let room = localStorage.getItem('room');
+
+    if (room) {
+      this.props.actions.changeRoom(room);
+      this.props.actions.fetchMessagesByRoom(room);
+    }
   }
 
   render() {
@@ -18,8 +24,7 @@ class Chat extends Component {
       actions,
       rooms,
       room,
-      roomsFetched,
-      roomsFetching,
+      chatName,
       messages,
       messagesFetched,
       messagesFetching,
@@ -29,14 +34,19 @@ class Chat extends Component {
       <Container>
         <ChatHeader
           rooms={rooms}
+          room={room}
           changeRoom={actions.changeRoom}
+          changeChatName={actions.changeChatName}
           fetchMessagesByRoom={actions.fetchMessagesByRoom} />
         <ChatList
           messages={messages}
           messagesFetched={messagesFetched}
           messagesFetching={messagesFetching}
         />
-        <ChatFooter room={room} sendMessage={actions.sendMessage} />
+        <ChatFooter
+          room={room}
+          chatName={chatName}
+          sendMessage={actions.sendMessage} />
       </Container>
     );
   }
@@ -47,25 +57,25 @@ Chat.propTypes = {
 
   rooms: PropTypes.array.isRequired,
   room: PropTypes.string.isRequired,
-  roomsFetched: PropTypes.bool,
-  roomsFetching: PropTypes.bool,
 
   messages: PropTypes.array.isRequired,
   messagesFetched: PropTypes.bool,
   messagesFetching: PropTypes.bool,
+
+  chatName: PropTypes.string,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     rooms: state.chatRooms.rooms,
-    roomsFetched: state.chatRooms.fetched,
-    roomsFetching: state.chatRooms.fetching,
 
     messages: state.chatMessages.messages,
     messagesFetched: state.chatMessages.fetched,
     messagesFetching: state.chatMessages.fetching,
 
-    room: state.chatRoom
+    room: state.chatRoom,
+
+    chatName: state.chatName
   };
 }
 

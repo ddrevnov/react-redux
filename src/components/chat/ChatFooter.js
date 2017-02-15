@@ -8,12 +8,16 @@ class ChatFooter extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let { sendMessage, room } = this.props;
+    let { sendMessage, room, chatName } = this.props;
     let { messageText } = this.state;
+
+    if (!chatName) {
+      chatName = 'Guest';
+    }
 
     sendMessage({
       text: messageText,
-      chatName: 'Test',
+      chatName,
       room
     });
     this.setState({messageText: ''});
@@ -28,6 +32,7 @@ class ChatFooter extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Form.Group>
           <TextArea
+            name="messageText"
             onChange={this.handleTyping}
             value={this.state.messageText}
             placeholder="Type message..." />

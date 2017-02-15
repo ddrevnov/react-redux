@@ -1,9 +1,14 @@
 import React, {PropTypes, Component} from 'react';
-import { Menu, Dropdown } from 'semantic-ui-react';
+import { Menu, Dropdown, Input } from 'semantic-ui-react';
 
 class ChatHeader extends Component {
   state = {
     selectedRoom: 'Select room'
+  };
+
+  handleNameChange = (e, data) => {
+    let { changeChatName } = this.props;
+    changeChatName(data.value);
   };
 
   handleRoomChange = (e, data) => {
@@ -21,12 +26,14 @@ class ChatHeader extends Component {
       selectedRoom: selectedRoom.name
     });
 
-    changeRoom(selectedRoom._id);
-    fetchMessagesByRoom(selectedRoom._id);
+    localStorage.setItem('room', selectedRoom.name);
+
+    changeRoom(selectedRoom.name);
+    fetchMessagesByRoom(selectedRoom.name);
   };
 
   render() {
-    const { rooms } = this.props;
+    const { rooms, room } = this.props;
 
     const roomList = (
       rooms.map(room => {
@@ -41,10 +48,14 @@ class ChatHeader extends Component {
 
     return (
       <Menu>
-        <Menu.Item>Chat</Menu.Item>
+        <Menu.Item>
+          <Input
+            onChange={this.handleNameChange}
+            placeholder="Enter your chat name..."/>
+        </Menu.Item>
         <Menu.Menu position="right">
           <Dropdown
-            item text='Select room'>
+            item text={room}>
             <Dropdown.Menu>
               {roomList}
             </Dropdown.Menu>
