@@ -1,45 +1,46 @@
 import React, {PropTypes, Component} from 'react';
 import { Menu, Dropdown, Input } from 'semantic-ui-react';
+import { socket } from '../../constants/appConstants';
 
 class ChatHeader extends Component {
-  state = {
-    selectedRoom: 'Select room'
-  };
 
   handleNameChange = (e, data) => {
     let { changeChatName } = this.props;
     changeChatName(data.value);
+    localStorage.setItem('chatName', data.value);
   };
 
   handleRoomChange = (e, data) => {
-    let { fetchMessagesByRoom, rooms, changeRoom } = this.props;
-    let roomId = data.value;
-    let selectedRoom = {};
+
+    let { fetchMessagesByRoom, rooms, room, changeRoom } = this.props;
+    let roomName = data.value;
+    let selectedRoom = '';
 
     rooms.forEach((room) => {
-      if (room._id === roomId) {
-        selectedRoom = room;
+      if (room.name === roomName) {
+        selectedRoom = room.name;
       }
     });
 
-    this.setState({
-      selectedRoom: selectedRoom.name
+    localStorage.setItem('room', selectedRoom);
+    changeRoom(selectedRoom);
+
+    socket.emit('switch room', {
+      oldRoom: room,
+      newRoom: selectedRoom
     });
 
-    localStorage.setItem('room', selectedRoom.name);
-
-    changeRoom(selectedRoom.name);
-    fetchMessagesByRoom(selectedRoom.name);
+    fetchMessagesByRoom(selectedRoom);
   };
 
   render() {
-    const { rooms, room } = this.props;
+    const { rooms, room, chatName } = this.props;
 
     const roomList = (
       rooms.map(room => {
         return <Dropdown.Item
           onClick={this.handleRoomChange}
-          value={room._id}
+          value={room.name}
           key={room._id}>
           {room.name}
           </Dropdown.Item>
@@ -50,6 +51,7 @@ class ChatHeader extends Component {
       <Menu>
         <Menu.Item>
           <Input
+            value={chatName}
             onChange={this.handleNameChange}
             placeholder="Enter your chat name..."/>
         </Menu.Item>

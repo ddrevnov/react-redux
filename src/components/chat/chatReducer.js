@@ -62,23 +62,12 @@ export const chatMessages = (state = {
         fetched: true
       };
 
-    case `${NEW_CHAT_MESSAGE}_PENDING`:
-      return {
-        ...state,
-        fetching: true
-      };
-    case `${NEW_CHAT_MESSAGE}_REJECTED`:
-      return {
-        ...state,
-        fetching: false,
-        error: action.payload.data
-      };
-    case `${NEW_CHAT_MESSAGE}_FULFILLED`:
+    case NEW_CHAT_MESSAGE:
       return {
         ...state,
         messages: [
           ...state.messages,
-          action.payload.data
+          action.payload
         ],
         fetching: false,
         fetched: true

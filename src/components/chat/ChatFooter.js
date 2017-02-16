@@ -1,5 +1,6 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import { Form, Button, TextArea } from 'semantic-ui-react';
+import { socket } from '../../constants/appConstants';
 
 class ChatFooter extends Component {
   state = {
@@ -8,18 +9,19 @@ class ChatFooter extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let { sendMessage, room, chatName } = this.props;
+    let { room, chatName } = this.props;
     let { messageText } = this.state;
 
     if (!chatName) {
       chatName = 'Guest';
     }
 
-    sendMessage({
+    let msg = {
       text: messageText,
       chatName,
       room
-    });
+    };
+    socket.emit('new message', msg);
     this.setState({messageText: ''});
   };
 
@@ -44,9 +46,5 @@ class ChatFooter extends Component {
     );
   }
 }
-
-ChatFooter.propTypes = {
-  sendMessage: PropTypes.func.isRequired
-};
 
 export default ChatFooter;

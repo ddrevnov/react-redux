@@ -18,7 +18,7 @@ export const fetchMessagesByRoom = (roomName) => dispatch => {
 export const sendMessage = (message) => dispatch => {
   dispatch({
     type: types.NEW_CHAT_MESSAGE,
-    payload: axios.post(`/api/chat/messages`, message)
+    payload: message
   });
 };
 

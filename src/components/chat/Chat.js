@@ -6,17 +6,43 @@ import ChatHeader from './ChatHeader';
 import ChatList from './ChatList';
 import ChatFooter from './ChatFooter';
 import { Container } from 'semantic-ui-react';
+import { socket } from '../../constants/appConstants';
 
 class Chat extends Component {
 
   componentWillMount() {
-    this.props.actions.fetchRooms();
+    let { actions } = this.props;
+
+    actions.fetchRooms();
     let room = localStorage.getItem('room');
+    let chatName = localStorage.getItem('chatName');
 
     if (room) {
-      this.props.actions.changeRoom(room);
-      this.props.actions.fetchMessagesByRoom(room);
+      actions.changeRoom(room);
+      actions.fetchMessagesByRoom(room);
+      socket.emit('new user', {room});
     }
+
+    if (chatName) {
+      actions.changeChatName(chatName);
+    }
+  }
+
+  componentDidMount() {
+    let { actions } = this.props;
+
+    socket.on('message created', msg => {
+      console.log(msg);
+      actions.sendMessage(msg);
+    });
+
+    socket.on('user left', (data) => {
+      console.log(data);
+    });
+
+    socket.on('user joined', (data) => {
+      console.log(data);
+    });
   }
 
   render() {
@@ -34,6 +60,7 @@ class Chat extends Component {
       <Container>
         <ChatHeader
           rooms={rooms}
+          chatName={chatName}
           room={room}
           changeRoom={actions.changeRoom}
           changeChatName={actions.changeChatName}
@@ -45,8 +72,7 @@ class Chat extends Component {
         />
         <ChatFooter
           room={room}
-          chatName={chatName}
-          sendMessage={actions.sendMessage} />
+          chatName={chatName} />
       </Container>
     );
   }
