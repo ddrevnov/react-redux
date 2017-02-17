@@ -28,3 +28,10 @@ export const fetchTodos = () => dispatch => {
     payload: axios.get('/api/todos')
   });
 };
+
+export const filterTodos = (filter) => dispatch => {
+  dispatch({
+    type: types.FILTER_TODOS,
+    payload: filter
+  });
+};

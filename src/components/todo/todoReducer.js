@@ -38,6 +38,18 @@ export default function todosReducer(state = initialState.todos, action) {
       });
     case `${types.DELETE_TODO}_FULFILLED`:
       return state.filter((todo) => action.payload.data._id !== todo._id);
+
+    case types.FILTER_TODOS:
+      switch (action.payload) {
+        case 'all':
+          return state;
+        case 'active':
+          return state.filter(todo => todo.completed);
+        case 'completed':
+          return state.filter(todo => !todo.completed);
+        default: return state
+      }
+
     default:
       return state;
   }

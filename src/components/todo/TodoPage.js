@@ -5,6 +5,7 @@ import * as todoActions from './todoActions';
 import TodoList from './TodoList';
 import { Field, reduxForm } from 'redux-form';
 import { Grid, Container, Header, Form, Button } from 'semantic-ui-react';
+import TodoFilter from './TodoFilter';
 
 import './todo.scss';
 
@@ -29,38 +30,49 @@ class TodoPage extends Component {
   }
 
   render() {
-    const {handleSubmit, todos, submitting, pristine} = this.props;
+    const {handleSubmit, todos, submitting, pristine, actions} = this.props;
 
     return (
-      <Grid.Row>
-        <Grid.Column>
-          <Container>
-            <Header as="h1">Todo page</Header>
-            <Form onSubmit={handleSubmit(this.addTodo.bind(this))}>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            <Container>
+              <Header as="h1">Todo page</Header>
+              <Form onSubmit={handleSubmit(this.addTodo.bind(this))}>
 
-              <Grid columns='equal'>
-                <Grid.Column width={15}>
-                  <Form.Field>
-                    <Field
-                      name="todoText"
-                      component="input"
-                      type="text"
-                      placeholder="Add todo" />
-                  </Form.Field>
-                </Grid.Column>
-                <Grid.Column width={1}>
-                  <Button
-                    floated='right'
-                    color="green"
-                    disabled={pristine || submitting}>Add</Button>
-                </Grid.Column>
-              </Grid>
+                <Grid columns='equal'>
+                  <Grid.Column width={15}>
+                    <Form.Field>
+                      <Field
+                        name="todoText"
+                        component="input"
+                        type="text"
+                        placeholder="Add todo" />
+                    </Form.Field>
+                  </Grid.Column>
+                  <Grid.Column width={1}>
+                    <Button
+                      floated='right'
+                      color="green"
+                      disabled={pristine || submitting}>Add</Button>
+                  </Grid.Column>
+                </Grid>
 
-            </Form>
-            <TodoList todos={todos} />
-          </Container>
-        </Grid.Column>
-      </Grid.Row>
+              </Form>
+              <TodoList todos={todos} />
+            </Container>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row>
+          <Grid.Column>
+            <Container>
+              <TodoFilter filterTodos={actions.filterTodos} />
+            </Container>
+          </Grid.Column>
+        </Grid.Row>
+
+      </Grid>
     );
   }
 }
