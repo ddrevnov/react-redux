@@ -6,6 +6,8 @@ import TodoList from './TodoList';
 import { Field, reduxForm } from 'redux-form';
 import { Grid, Container, Header, Form, Button } from 'semantic-ui-react';
 
+import './todo.scss';
+
 class TodoPage extends Component {
 
   componentWillMount() {

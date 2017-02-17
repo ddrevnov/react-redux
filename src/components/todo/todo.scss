@@ -1,0 +1,17 @@
+.todo-item {
+
+  &__completed {
+    text-decoration: line-through;
+  }
+
+  &__checkbox {
+    margin-right: 10px;
+  }
+
+  &__date {
+    vertical-align: sub;
+    font-size: 11px;
+    color: #ccc;
+  }
+
+}

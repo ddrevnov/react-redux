@@ -1,7 +1,8 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from './todoActions';
-import { Form, List, Button, Input } from 'semantic-ui-react';
+import { Form, List, Button, Checkbox } from 'semantic-ui-react';
+import { dateFilter } from '../../lib';
 
 export class TodoItem extends Component {
   state = {
@@ -22,17 +23,28 @@ export class TodoItem extends Component {
     this.setState({ editing: false });
   };
 
+  handleChange = (e, data) => {
+    let todo = {
+      ...this.props,
+      completed: data.checked
+    };
+    this.props.dispatch(actions.updateTodo(todo));
+  };
+
   render() {
-    const { text, completed, _id, dispatch } = this.props;
+    const { text, completed, _id, dispatch, created } = this.props;
 
     let element;
 
     if (this.state.editing) {
       element = (
       <Form onSubmit={this.handleSubmit}>
-        <Input
-          ref={(input) => { this.textInput = input; }}
-          type="text" defaultValue={text}/>
+        <Form.Field>
+          <input
+            name="input"
+            ref={(input) => { this.textInput = input; }}
+            defaultValue={text}/>
+        </Form.Field>
       </Form>
       );
     } else {
@@ -42,14 +54,17 @@ export class TodoItem extends Component {
     }
 
     return (
-      <List.Item
-        style={{
-          textDecoration: completed ? 'line-through' : 'none'
-        }}>
+      <List.Item>
         <List.Content floated='left'>
-          {/*<Form.Field control='input' type='checkbox' />*/}
-          <span onDoubleClick={this.handleDoubleClick}>
+          <Checkbox
+            checked={completed}
+            className='todo-item__checkbox'
+            onChange={this.handleChange} />
+          <span
+            onDoubleClick={this.handleDoubleClick}
+            className={completed ? 'todo-item__completed' : ''}>
           { element }
+          <span className="todo-item__date"> { dateFilter(created) }</span>
         </span>
         </List.Content>
         <List.Content floated='right'>

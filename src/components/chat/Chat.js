@@ -8,7 +8,7 @@ import ChatFooter from './ChatFooter';
 import { Container } from 'semantic-ui-react';
 import { socket } from '../../constants/appConstants';
 
-import './chat.css';
+import './chat.scss';
 
 class Chat extends Component {
 
