@@ -35,3 +35,25 @@ export const changeChatName = (name) => dispatch => {
     payload: name
   });
 };
+
+export const userLeft = (data) => dispatch => {
+  dispatch({
+    type: types.USER_LEFT,
+    payload: {
+      ...data,
+      joined: false,
+      left: true
+    }
+  });
+};
+
+export const userJoined = (data) => dispatch => {
+  dispatch({
+    type: types.USER_JOINED,
+    payload: {
+      ...data,
+      joined: true,
+      left: false
+    }
+  });
+};

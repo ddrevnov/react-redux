@@ -8,6 +8,8 @@ import ChatFooter from './ChatFooter';
 import { Container } from 'semantic-ui-react';
 import { socket } from '../../constants/appConstants';
 
+import './chat.css';
+
 class Chat extends Component {
 
   componentWillMount() {
@@ -32,16 +34,17 @@ class Chat extends Component {
     let { actions } = this.props;
 
     socket.on('message created', msg => {
-      console.log(msg);
       actions.sendMessage(msg);
     });
 
     socket.on('user left', (data) => {
       console.log(data);
+      actions.userLeft(data);
     });
 
     socket.on('user joined', (data) => {
       console.log(data);
+      actions.userJoined(data);
     });
   }
 
@@ -50,6 +53,7 @@ class Chat extends Component {
       actions,
       rooms,
       room,
+      user,
       chatName,
       messages,
       messagesFetched,
@@ -66,6 +70,7 @@ class Chat extends Component {
           changeChatName={actions.changeChatName}
           fetchMessagesByRoom={actions.fetchMessagesByRoom} />
         <ChatList
+          user={user}
           messages={messages}
           messagesFetched={messagesFetched}
           messagesFetching={messagesFetching}
@@ -89,6 +94,8 @@ Chat.propTypes = {
   messagesFetching: PropTypes.bool,
 
   chatName: PropTypes.string,
+
+  user: PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -101,7 +108,9 @@ function mapStateToProps(state, ownProps) {
 
     room: state.chatRoom,
 
-    chatName: state.chatName
+    chatName: state.chatName,
+
+    user: state.user
   };
 }
 

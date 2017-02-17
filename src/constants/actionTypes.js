@@ -15,3 +15,5 @@ export const FETCH_CHAT_MESSAGES = 'FETCH_CHAT_MESSAGES';
 export const CHANGE_ROOM = 'CHANGE_ROOM';
 export const NEW_CHAT_MESSAGE = 'NEW_CHAT_MESSAGE';
 export const CHANGE_CHAT_NAME = 'CHANGE_CHAT_NAME';
+export const USER_LEFT = 'USER_LEFT';
+export const USER_JOINED = 'USER_JOINED';

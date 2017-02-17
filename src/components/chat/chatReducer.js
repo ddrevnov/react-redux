@@ -3,7 +3,9 @@ import {
   FETCH_CHAT_ROOMS,
   CHANGE_ROOM,
   NEW_CHAT_MESSAGE,
-  CHANGE_CHAT_NAME
+  CHANGE_CHAT_NAME,
+  USER_LEFT,
+  USER_JOINED,
 } from '../../constants/actionTypes';
 
 export const chatRooms = (state = {
@@ -89,6 +91,17 @@ export const chatRoom = (state = '', action) => {
 export const chatName = (state = 'Guest', action) => {
   switch (action.type) {
     case CHANGE_CHAT_NAME:
+      return action.payload;
+    default:
+      return state
+  }
+};
+
+export const user = (state = {}, action) => {
+  switch (action.type) {
+    case USER_LEFT:
+      return action.payload;
+    case USER_JOINED:
       return action.payload;
     default:
       return state

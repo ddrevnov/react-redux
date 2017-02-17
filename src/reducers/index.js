@@ -5,7 +5,8 @@ import {
   chatRooms,
   chatRoom,
   chatMessages,
-  chatName} from '../components/chat/chatReducer';
+  chatName,
+  user} from '../components/chat/chatReducer';
 import {reducer as form} from 'redux-form';
 import { routerReducer } from 'react-router-redux';
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   chatMessages,
   chatRoom,
   chatName,
+  user,
   form,
   routing: routerReducer
 });
