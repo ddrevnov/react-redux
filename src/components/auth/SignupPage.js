@@ -15,9 +15,13 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 class SignupPage extends Component {
 
-  handleFormSubmit(formProps) {
+  handleFormSubmit = (formProps) => {
     this.props.actions.signupUser(formProps);
-  }
+  };
+
+  handleGoogleAuth = () => {
+    this.props.actions.signupUserByGoogle();
+  };
 
   errorAlert() {
     if (this.props.errorMessage) {
@@ -34,7 +38,8 @@ class SignupPage extends Component {
 
     return (
       <Container>
-        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <Button onClick={this.handleGoogleAuth} color="red">Google</Button>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit)}>
 
           <Field
             name="email"

@@ -58,3 +58,10 @@ export function signupUser({ email, password }) {
       });
   }
 }
+
+export const signupUserByGoogle = () => dispatch => {
+  dispatch({
+    type: types.AUTH_USER,
+    payload: axios.get('/api/auth/google')
+  });
+};
