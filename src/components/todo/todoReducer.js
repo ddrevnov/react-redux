@@ -1,12 +1,6 @@
 import * as types from '../../constants/actionTypes';
 
-const initialState = {
-  todos: [],
-  todo: {}
-};
-
-const todo = (state = initialState.todo, action) => {
-  console.log(state, action);
+const todo = (state = {}, action) => {
   switch (action.type) {
     case `${types.ADD_TODO}_FULFILLED`:
       return {
@@ -18,10 +12,31 @@ const todo = (state = initialState.todo, action) => {
   }
 };
 
-export default function todosReducer(state = initialState.todos, action) {
+export const visibilityFilter = (state = types.SHOW_ALL, action) => {
+  switch (action.type) {
+    case types.SET_VISIBILITY_FILTER:
+      return action.payload;
+    default:
+      return state
+  }
+};
+
+export const sort = (state = types.DESCENDING, action) => {
+  switch (action.type) {
+    case types.SET_SORT:
+      return action.payload;
+    default:
+      return state
+  }
+};
+
+export default function todosReducer(state = [], action) {
   switch (action.type) {
     case `${types.FETCH_TODOS}_FULFILLED`:
-      return state = action.payload.data;
+      return [
+        ...state,
+        ...action.payload.data
+      ];
     case `${types.FETCH_TODOS}_REJECTED`:
       return action.payload;
     case `${types.ADD_TODO}_FULFILLED`:
@@ -38,18 +53,6 @@ export default function todosReducer(state = initialState.todos, action) {
       });
     case `${types.DELETE_TODO}_FULFILLED`:
       return state.filter((todo) => action.payload.data._id !== todo._id);
-
-    case types.FILTER_TODOS:
-      switch (action.payload) {
-        case 'all':
-          return state;
-        case 'active':
-          return state.filter(todo => todo.completed);
-        case 'completed':
-          return state.filter(todo => !todo.completed);
-        default: return state
-      }
-
     default:
       return state;
   }

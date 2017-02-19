@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import todos from '../components/todo/todoReducer';
+import todos, { visibilityFilter, sort } from '../components/todo/todoReducer';
 import auth from '../components/auth/authReducer';
 import {
   chatRooms,
@@ -11,6 +11,8 @@ import {reducer as form} from 'redux-form';
 import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
+  visibilityFilter,
+  sort,
   todos,
   auth,
   chatRooms,

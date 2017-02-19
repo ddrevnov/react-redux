@@ -30,7 +30,7 @@ class TodoPage extends Component {
   }
 
   render() {
-    const {handleSubmit, todos, submitting, pristine, actions} = this.props;
+    const {handleSubmit, todos, submitting, pristine, actions, visibilityFilter, sort} = this.props;
 
     return (
       <Grid>
@@ -59,7 +59,10 @@ class TodoPage extends Component {
                 </Grid>
 
               </Form>
-              <TodoList todos={todos} />
+              <TodoList
+                todos={todos}
+                visibilityFilter={visibilityFilter}
+                sort={sort}/>
             </Container>
           </Grid.Column>
         </Grid.Row>
@@ -67,7 +70,11 @@ class TodoPage extends Component {
         <Grid.Row>
           <Grid.Column>
             <Container>
-              <TodoFilter filterTodos={actions.filterTodos} />
+              <TodoFilter
+                visibilityFilter={visibilityFilter}
+                sort={sort}
+                filterTodos={actions.filterTodos}
+                sortTodos={actions.sortTodos}/>
             </Container>
           </Grid.Column>
         </Grid.Row>
@@ -80,11 +87,15 @@ class TodoPage extends Component {
 TodoPage.propTypes = {
   actions: PropTypes.object.isRequired,
   todos: PropTypes.array.isRequired,
+  visibilityFilter: PropTypes.string.isRequired,
+  sort: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    todos: state.todos
+    todos: state.todos,
+    visibilityFilter: state.visibilityFilter,
+    sort: state.sort
   };
 }
 

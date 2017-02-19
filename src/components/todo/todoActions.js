@@ -31,7 +31,14 @@ export const fetchTodos = () => dispatch => {
 
 export const filterTodos = (filter) => dispatch => {
   dispatch({
-    type: types.FILTER_TODOS,
+    type: types.SET_VISIBILITY_FILTER,
     payload: filter
+  });
+};
+
+export const sortTodos = (sort) => dispatch => {
+  dispatch({
+    type: types.SET_SORT,
+    payload: sort
   });
 };
