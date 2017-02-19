@@ -33,10 +33,7 @@ export const sort = (state = types.DESCENDING, action) => {
 export default function todosReducer(state = [], action) {
   switch (action.type) {
     case `${types.FETCH_TODOS}_FULFILLED`:
-      return [
-        ...state,
-        ...action.payload.data
-      ];
+      return action.payload.data;
     case `${types.FETCH_TODOS}_REJECTED`:
       return action.payload;
     case `${types.ADD_TODO}_FULFILLED`:
