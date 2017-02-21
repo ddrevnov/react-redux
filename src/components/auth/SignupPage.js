@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './authActions';
 import { Form, Button, Label, Container } from 'semantic-ui-react';
+import Social from '../common/Social';
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <Form.Field>
@@ -19,10 +20,6 @@ class SignupPage extends Component {
     this.props.actions.signupUser(formProps);
   };
 
-  handleGoogleAuth = () => {
-    this.props.actions.signupUserByGoogle();
-  };
-
   errorAlert() {
     if (this.props.errorMessage) {
       return (
@@ -34,11 +31,13 @@ class SignupPage extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { handleSubmit, pristine, reset, submitting, actions } = this.props;
 
     return (
       <Container>
-        <Button onClick={this.handleGoogleAuth} color="red">Google</Button>
+
+        <Social signinUser={actions.signinUser} />
+
         <Form onSubmit={handleSubmit(this.handleFormSubmit)}>
 
           <Field

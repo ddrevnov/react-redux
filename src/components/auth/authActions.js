@@ -1,26 +1,35 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
 import * as types from '../../constants/actionTypes';
+import { browserHistory } from 'react-router';
 
-export function signinUser({ email, password }) {
+export function signinUser(data) {
+  console.log(data);
   return function(dispatch) {
-    axios.post('/api/auth/login', { email, password })
+    axios.post('/api/auth/login', data)
       .then(response => {
-        dispatch({ type: types.AUTH_USER });
+        dispatch({ type: `${types.AUTH_USER}_FULFILLED`, payload: response });
         localStorage.setItem('token', response.data.token);
         browserHistory.push('/');
       })
       .catch(err => {
         console.log(err);
-        dispatch(authError('Bad Login Info'));
+        dispatch({ type: `${types.AUTH_USER}_REJECTED` });
       })
   }
 }
 
-export function authError(error) {
-  return {
-    type: types.AUTH_ERROR,
-    payload: error
+export function signupUser({ email, password }) {
+  return function(dispatch) {
+    axios.post('/api/users', { email, password })
+      .then(response => {
+        dispatch({ type: `${types.AUTH_USER}_FULFILLED`, payload: response });
+        localStorage.setItem('token', response.data.token);
+        browserHistory.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: `${types.AUTH_USER}_REJECTED` });
+      })
   }
 }
 
@@ -44,24 +53,3 @@ export function fetchMessage() {
     })
   }
 }
-
-export function signupUser({ email, password }) {
-  return function (dispatch) {
-    axios.post('/api/users', { email, password })
-      .then(response => {
-        dispatch({ type: types.AUTH_USER });
-        localStorage.setItem('token', response.data.token);
-        browserHistory.push('/');
-      })
-      .catch(response => {
-        dispatch(authError(response.message));
-      });
-  }
-}
-
-export const signupUserByGoogle = () => dispatch => {
-  dispatch({
-    type: types.AUTH_USER,
-    payload: axios.get('/api/auth/google')
-  });
-};

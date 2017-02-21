@@ -3,30 +3,33 @@ import {Field, reduxForm} from 'redux-form';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as authActions from './authActions';
+import Social from '../common/Social';
 import { Container, Form, Button } from 'semantic-ui-react';
 
 class SigninPage extends Component {
 
   handleFormSubmit({email, password}) {
-    console.log(email, password);
-    this.props.actions.signinUser({ email, password });
+    this.props.actions.signinUser({ type: 'local', email, password });
   }
 
   renderAlert() {
-    if (this.props.errorMessage) {
+    if (this.props.auth.errorMessage) {
       return (
         <div className="alert alert-danger">
-          <strong>Oops!</strong> {this.props.errorMessage}
+          <strong>Oops!</strong> {this.props.auth.errorMessage}
         </div>
       );
     }
   }
 
   render() {
-    const {handleSubmit} = this.props;
+    const { handleSubmit, actions } = this.props;
 
     return (
       <Container>
+
+        <Social signinUser={actions.signinUser} />
+
         <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
           <Form.Field>
@@ -53,7 +56,7 @@ SigninPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    errorMessage: state.auth.error
+    auth: state.auth
   };
 }
 
