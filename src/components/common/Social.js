@@ -6,11 +6,12 @@ import { Button, Segment } from 'semantic-ui-react';
 const Social = ({ signinUser }) => {
 
   const responseGoogle = (response) => {
-    let { name, email, googleId } = response.profileObj;
+    let { email, googleId, givenName, familyName } = response.profileObj;
     signinUser({
-      type: 'google',
-      id: googleId,
-      name,
+      provider: 'google',
+      providerId: googleId,
+      firstName: givenName,
+      lastName: familyName,
       email
     });
   };

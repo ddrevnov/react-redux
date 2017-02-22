@@ -6,12 +6,24 @@ import { Menu, Grid } from 'semantic-ui-react';
 class Header extends Component {
 
   renderLinks() {
-    if (this.props.isAuth) {
-      return <Menu.Item
-        key={0}
-        as={Link}
-        to="/signout"
-        activeClassName="active">Sign Out</Menu.Item>
+    let { user, isAuth } = this.props;
+    let userInfo = null;
+
+    if (user) {
+      userInfo = <Menu.Item key={0}>
+        <div>{user.email}</div>
+      </Menu.Item>
+    }
+
+    if (isAuth) {
+      return [
+        userInfo,
+        <Menu.Item
+          key={1}
+          as={Link}
+          to="/signout"
+          activeClassName="active">Sign Out</Menu.Item>
+      ]
     } else {
       return [
         <Menu.Item
@@ -30,8 +42,6 @@ class Header extends Component {
   }
 
   render() {
-
-    console.log(this.props.isAuth);
 
     return (
       <Grid.Row>
@@ -67,12 +77,14 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  loading: PropTypes.bool.isRequired
+  isAuth: PropTypes.bool,
+  user: PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    user: state.user
   }
 }
 

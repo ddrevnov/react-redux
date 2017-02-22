@@ -9,7 +9,7 @@ import { Container, Form, Button } from 'semantic-ui-react';
 class SigninPage extends Component {
 
   handleFormSubmit({email, password}) {
-    this.props.actions.signinUser({ type: 'local', email, password });
+    this.props.actions.signinUser({ provider: 'local', email, password });
   }
 
   renderAlert() {

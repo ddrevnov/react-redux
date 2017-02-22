@@ -6,9 +6,10 @@ import {
   chatRoom,
   chatMessages,
   chatName,
-  user} from '../components/chat/chatReducer';
+  chatUser} from '../components/chat/chatReducer';
 import {reducer as form} from 'redux-form';
 import { routerReducer } from 'react-router-redux';
+import user from './userReducer';
 
 const rootReducer = combineReducers({
   visibilityFilter,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   chatMessages,
   chatRoom,
   chatName,
+  chatUser,
   user,
   form,
   routing: routerReducer

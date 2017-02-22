@@ -51,7 +51,7 @@ class Chat extends Component {
       actions,
       rooms,
       room,
-      user,
+      chatUser,
       chatName,
       messages,
       messagesFetched,
@@ -68,7 +68,7 @@ class Chat extends Component {
           changeChatName={actions.changeChatName}
           fetchMessagesByRoom={actions.fetchMessagesByRoom} />
         <ChatList
-          user={user}
+          user={chatUser}
           messages={messages}
           messagesFetched={messagesFetched}
           messagesFetching={messagesFetching}
@@ -93,7 +93,7 @@ Chat.propTypes = {
 
   chatName: PropTypes.string,
 
-  user: PropTypes.object,
+  chatUser: PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -108,7 +108,7 @@ function mapStateToProps(state, ownProps) {
 
     chatName: state.chatName,
 
-    user: state.user
+    chatUser: state.chatUser
   };
 }
 

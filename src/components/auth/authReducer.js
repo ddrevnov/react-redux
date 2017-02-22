@@ -5,7 +5,7 @@ export default function authReducer(state = {}, action) {
     case `${types.AUTH_USER}_FULFILLED`:
       return { ...state, error: '', isAuth: true };
     case `${types.AUTH_USER}_REJECTED`:
-      return { ...state, error: action.payload.data.message, isAuth: false };
+      return { ...state, error: action.payload, isAuth: false };
     case types.UNAUTH_USER:
       return { ...state, isAuth: false };
     case types.FETCH_MESSAGE:

@@ -1,6 +1,14 @@
 import axios from 'axios';
 import * as types from '../../constants/actionTypes';
 import { browserHistory } from 'react-router';
+import jwtDecode from 'jwt-decode';
+
+export const fetchUser = (id) => dispatch => {
+  dispatch({
+    type: types.FETCH_USER,
+    payload: axios.get(`/api/users/${id}`)
+  });
+};
 
 export function signinUser(data) {
   console.log(data);
@@ -8,8 +16,12 @@ export function signinUser(data) {
     axios.post('/api/auth/login', data)
       .then(response => {
         dispatch({ type: `${types.AUTH_USER}_FULFILLED`, payload: response });
-        localStorage.setItem('token', response.data.token);
+        let token = response.data.token;
+        localStorage.setItem('token', token);
         browserHistory.push('/');
+
+        let userId = jwtDecode(token).id;
+        dispatch(fetchUser(userId));
       })
       .catch(err => {
         console.log(err);
@@ -23,8 +35,12 @@ export function signupUser({ email, password }) {
     axios.post('/api/users', { email, password })
       .then(response => {
         dispatch({ type: `${types.AUTH_USER}_FULFILLED`, payload: response });
-        localStorage.setItem('token', response.data.token);
+        let token = response.data.token;
+        localStorage.setItem('token', token);
         browserHistory.push('/');
+
+        let userId = jwtDecode(token).id;
+        dispatch(fetchUser(userId));
       })
       .catch(err => {
         console.log(err);

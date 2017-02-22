@@ -97,7 +97,7 @@ export const chatName = (state = 'Guest', action) => {
   }
 };
 
-export const user = (state = {}, action) => {
+export const chatUser = (state = {}, action) => {
   switch (action.type) {
     case USER_LEFT:
       return action.payload;
