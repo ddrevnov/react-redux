@@ -17,7 +17,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 const token = localStorage.getItem('token');
 
 if (token) {
-  store.dispatch({ type: AUTH_USER });
+  store.dispatch({ type: `${AUTH_USER}_FULFILLED` });
 }
 
 ReactDOM.render(

@@ -31,6 +31,8 @@ class Header extends Component {
 
   render() {
 
+    console.log(this.props.isAuth);
+
     return (
       <Grid.Row>
         <Menu pointing className="top-menu">

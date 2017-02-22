@@ -38,12 +38,10 @@ class Chat extends Component {
     });
 
     socket.on('user left', (data) => {
-      console.log(data);
       actions.userLeft(data);
     });
 
     socket.on('user joined', (data) => {
-      console.log(data);
       actions.userJoined(data);
     });
   }
