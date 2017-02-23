@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
 
 export const fetchUser = (id) => dispatch => {
+  axios.defaults.headers.common['userId'] = id;
   dispatch({
     type: types.FETCH_USER,
     payload: axios.get(`/api/users/${id}`)
