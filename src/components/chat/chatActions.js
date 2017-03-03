@@ -1,17 +1,18 @@
 import axios from 'axios';
 import * as types from '../../constants/actionTypes';
+import { SERVER_PATH } from '../../constants/appConstants';
 
 export const fetchRooms = () => dispatch => {
   dispatch({
     type: types.FETCH_CHAT_ROOMS,
-    payload: axios.get(`/api/chat/rooms`)
+    payload: axios.get(`${SERVER_PATH}/api/chat/rooms`)
   });
 };
 
 export const fetchMessagesByRoom = (roomName) => dispatch => {
   dispatch({
     type: types.FETCH_CHAT_MESSAGES,
-    payload: axios.get(`/api/chat/messages/${roomName}`)
+    payload: axios.get(`${SERVER_PATH}/api/chat/messages/${roomName}`)
   });
 };
 
