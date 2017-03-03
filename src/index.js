@@ -19,9 +19,13 @@ const history = syncHistoryWithStore(browserHistory, store);
 const token = localStorage.getItem('token');
 
 if (token) {
-  store.dispatch({ type: `${AUTH_USER}_FULFILLED` });
-  let userId = jwtDecode(token).id;
-  store.dispatch(fetchUser(userId));
+  try {
+    let userId = jwtDecode(token).id;
+    store.dispatch({ type: `${AUTH_USER}_FULFILLED` });
+    store.dispatch(fetchUser(userId));
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 ReactDOM.render(
