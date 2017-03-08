@@ -38,7 +38,7 @@ class TodoPage extends Component {
           <Grid.Column>
             <Container>
               <Header as="h1">Todo page</Header>
-              <Form onSubmit={handleSubmit(this.addTodo.bind(this))}>
+              <Form onSubmit={handleSubmit(::this.addTodo)}>
 
                 <Grid columns='equal'>
                   <Grid.Column width={15}>

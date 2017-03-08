@@ -126,7 +126,10 @@ module.exports = {
         include: paths.appSrc,
         loader: 'babel',
         query: {
-          plugins: ['transform-decorators-legacy'],
+          plugins: [
+            'transform-decorators-legacy',
+            'transform-function-bind',
+          ],
           
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/

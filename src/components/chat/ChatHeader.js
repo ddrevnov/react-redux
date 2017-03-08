@@ -4,11 +4,11 @@ import { socket } from '../../constants/appConstants';
 
 class ChatHeader extends Component {
 
-  handleNameChange = (e, data) => {
+  handleNameChange(e, data) {
     let { changeChatName } = this.props;
     changeChatName(data.value);
     localStorage.setItem('chatName', data.value);
-  };
+  }
 
   handleRoomChange = (e, data) => {
 
@@ -52,7 +52,7 @@ class ChatHeader extends Component {
         <Menu.Item>
           <Input
             value={chatName}
-            onChange={this.handleNameChange}
+            onChange={::this.handleNameChange}
             placeholder="Enter your chat name..."/>
         </Menu.Item>
         <Menu.Menu position="right">
